@@ -65,20 +65,19 @@ io.on('connection', (socket) => {
                 break
         }
 
-        switch (progressCount) {
+        switch (improveCount) {
             case 0:
                 switch (msg) {
                     case "1":
-                        console.log('This is food item')
                         socket.emit('food menu', kitchen)
-                        progressCount = 1
+                        improveCount = 1
                         break
                 }
                 break
             case 1:
                 switch (msg) {
                     case "01":
-                        switch (progress) {
+                        switch (improve) {
                             case 2:
                                 console.log('Afang Soup')
                                 fetch.save(kitchen.afangSoup)
@@ -89,9 +88,8 @@ io.on('connection', (socket) => {
                         }
                         break
                     case "02":
-                        switch (progress) {
+                        switch (improve) {
                             case 2:
-                                console.log('Garri')
                                 fetch.save(kitchen.garri)
                                 socket.emit('message', formatMessages('Uyai Restaurant Bot',
                                     `Order for ${Object.values(kitchen.garri.title).join('')}
@@ -100,64 +98,61 @@ io.on('connection', (socket) => {
                         }
                         break
                     case "03":
-                        switch (progress) {
+                        switch (improve) {
                             case 2:
-                                console.log('Garri')
-                                Cart.save(foodStore.garri)
+                                fetch.save(kitchen.riceAndStew)
                                 socket.emit('message', formatMessages('Resturant-chat',
-                                    `Order for ${Object.values(foodStore.bole.title).join('')}
+                                    `Order for ${Object.values(kitchen.riceAndStew.title).join('')}
                                 Received.<br>Please select <b> 1 </b> to add food to cart or select 99 to checkout order`))
                                 break
                         }
                         break
                     case "04":
-                        switch (progress) {
+                        switch (improve) {
                             case 2:
-                                console.log('Ewa')
-                                Cart.save(foodStore.ewa)
+                                fecth.save(kitchen.egusi)
                                 socket.emit('message', formatMessages('Resturant-chat',
-                                    `Order for ${Object.values(foodStore.ewa.title).join('')}
+                                    `Order for ${Object.values(kitchen.egusi.title).join('')}
                                Received.<br>Please select <b> 1 </b> to add food to cart or select 99 to checkout order`))
                                 break
                         }
                         break
                     case "05":
-                        switch (progress) {
+                        switch (improve) {
                             case 2:
-                                console.log('Abacha')
-                                Cart.save(foodStore.garri)
+                                fetch.save(kitchen.okpa)
                                 socket.emit('message', formatMessages('Resturant-chat',
-                                    `Order for ${Object.values(foodStore.garri.title).join('')}
+                                    `Order for ${Object.values(kitchen.okpa.title).join('')}
                                Received.<br>Please select <b> 1 </b> to add food to cart or select 99 to checkout order`))
-                                progressCount = 0
+                               improveCount = 0
                                 break
                         }
-                        progressCount = 0
+                        improveCount = 0
                         break
                 }
-                progressCount = 0
+                improveCount = 0
                 break
         }
         switch (msg) {
             case "99":
-                if (Cart.getCart() === null) {
+                if (fetch.getCart() === null) {
                     socket.emit('message', formatMessages('Resturant-chat', `No order to place.<br>Please select <b> 1 </b> to see list of food items`))
                 } else {
-                    console.log(Cart.getCart())
+                    console.log(fetch.getCart())
                     socket.emit('message', formatMessages('Resturant-chat', `Order placed.<br>Please select <b> 97 </b> to see current order`))
                 }
-                progressCount = 0
+                improveCount = 0
                 break
         }
         switch (msg) {
             case "97":
-                if (Cart.getCart() === null) {
+                if (fetch.getCart() === null) {
                     socket.emit('message', formatMessages('Resturant-chat', `No order to place.<br>Please select <b> 1 </b> to see list of food items`))
                 } else {
-                    console.log(Cart.getCart())
-                    socket.emit('CurrentOrder', Cart.getCart())
+                    console.log(fetch.getCart())
+                    socket.emit('CurrentOrder', fetch.getCart())
                 }
-                progressCount = 0
+                improveCount = 0
                 break
         }
 
@@ -176,7 +171,7 @@ app.get('/', (request, response) => {
     response.render('orderchat')
 })
 
-app.listen(
+server.listen(
     port, () => {
         console.log(`server is listening at http://localhost:${port}`)
     }

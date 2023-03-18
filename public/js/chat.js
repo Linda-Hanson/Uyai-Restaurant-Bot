@@ -56,7 +56,7 @@ chatForm.addEventListener('submit',(e)=>{
 
     msg= msg.toLowerCase().trim();
 
-    socket.emit('ResturantChat',msg)
+    socket.emit('UyaiRestaurantBot',msg)
 
 
     formInput.value= "";
@@ -81,7 +81,7 @@ function outputUyaiRestaurantBot(chatMsg){
     const div = document.createElement('div')
     div.classList.add('chats')
     div.innerHTML=`
-    <div class="card mb-2 mt-3 ">
+    <div class="card mb-2 mt-3 bg-primary">
     <div class="card-body" style="text-align: right;>
     <p>Ichie <span>${chatMsg.time}</span></p>
     <p class="text" style="color: red;">${chatMsg.text}</p>
@@ -94,7 +94,7 @@ function outputResturantMenu(menu){
     const div = document.createElement('div')
     div.classList.add('chats')
     div.innerHTML=`
-    <div class="card mb-2 mt-3 style="text-align: left;">
+    <div class="card mb-2 mt-3 bg-warning" style="text-align: left;">
     <div class="card-body">
     <ul style="list-style-type:none;">
     <li>
@@ -109,7 +109,7 @@ function outputResturantMenu(menu){
     document.querySelector('.chat-messages').appendChild(div)
 }
 
-function outputFoodStore(menu){
+function outputKitchen(menu){
     const div = document.createElement('div')
     div.classList.add('chats')
     div.innerHTML=`
